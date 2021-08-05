@@ -20,6 +20,9 @@ class FlatAdmin(admin.ModelAdmin):
             'has_balcony',
             'floor',
         ]
+    raw_id_fields = [
+            'liked_by',
+        ]
     
 
 class ComplaintAdmin(admin.ModelAdmin):
