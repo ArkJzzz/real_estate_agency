@@ -2,9 +2,10 @@ from django.contrib import admin
 
 from property.models import Flat
 from property.models import Complaint
+from property.models import Owner
 
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ['town', 'address', 'owner']
+    search_fields = ['town', 'address', 'owner_deprecated']
     readonly_fields = ['created_at']
     list_display = [
             'town',
@@ -46,3 +47,15 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 admin.site.register(Complaint, ComplaintAdmin)
 
+
+class OwnerAdmin(admin.ModelAdmin):
+    list_display = [
+            'name',
+            'phonenumber',
+            'pure_phone',
+        ]    
+    raw_id_fields = [
+            'flats',
+        ]
+
+admin.site.register(Owner, OwnerAdmin)
