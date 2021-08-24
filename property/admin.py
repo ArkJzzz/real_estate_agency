@@ -4,6 +4,13 @@ from property.models import Flat
 from property.models import Complaint
 from property.models import Owner
 
+
+class FlatInline(admin.TabularInline):
+    model = Owner.owned_flats.through
+    list_display = ['owner']
+    raw_id_fields = ['owner']
+
+
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ['town', 'address', 'owner_deprecated']
     readonly_fields = ['created_at']
@@ -13,8 +20,6 @@ class FlatAdmin(admin.ModelAdmin):
             'price',
             'new_building',
             'construction_year',
-            'owners_phonenumber',
-            'owner_pure_phone',
         ]
     list_editable = ['new_building']
     list_filter = [
@@ -26,6 +31,7 @@ class FlatAdmin(admin.ModelAdmin):
     raw_id_fields = [
             'liked_by',
         ]
+    inlines = [FlatInline]
 
 
 admin.site.register(Flat, FlatAdmin)
@@ -55,7 +61,11 @@ class OwnerAdmin(admin.ModelAdmin):
             'pure_phone',
         ]    
     raw_id_fields = [
-            'flats',
+            'owned_flats',
         ]
 
 admin.site.register(Owner, OwnerAdmin)
+
+
+
+
