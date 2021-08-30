@@ -8,9 +8,6 @@ def bind_owners_flats(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for owner in Owner.objects.all():
         owner.flats.set(Flat.objects.filter(owner_deprecated=owner.name))
-        # owner_flats = Flat.objects.filter(owner_deprecated=owner.name)
-        # for flat in owner_flats:
-        #     owner.flats.add(flat)
 
 
 class Migration(migrations.Migration):
